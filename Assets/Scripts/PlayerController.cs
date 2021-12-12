@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject gameEnd;
     [SerializeField] TextMeshProUGUI score;
-    public bool isGame = true;
     public int scoreInt = 0;
 
     public float speed = 10;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        InvokeRepeating("IncreaseScore", 0.5f, 1);
     }
 
     void OnMove(InputValue movementValue)
@@ -36,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isGame)
+        if (GameController.gameProgress)
         {
             Vector2 movement = new Vector2(movementX, movementY);
             transform.Translate(movement * Time.deltaTime * speed);
@@ -48,7 +46,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         {
             gameEnd.gameObject.SetActive(true);
-            isGame = false;
+            GameController.gameProgress = false;
             CancelInvoke("IncreaseScore");
         }
     }

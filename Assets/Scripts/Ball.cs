@@ -16,7 +16,8 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(movement * Time.deltaTime * speed);
+        if (GameController.gameProgress)
+            transform.Translate(movement * Time.deltaTime * speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
